@@ -23,7 +23,7 @@ class MemoController extends Controller
     public function create()
     {
         $user = auth()->user();
-        return view('memo.index', compact('user'));
+        return view('memo.create', compact('user'));
     }
 
     /**
@@ -49,7 +49,8 @@ class MemoController extends Controller
      */
     public function edit(Memo $memo)
     {
-        //
+        $user = auth()->user();
+        return view('memo.edit', compact('user', 'memo'));
     }
 
     /**
@@ -57,7 +58,8 @@ class MemoController extends Controller
      */
     public function update(Request $request, Memo $memo)
     {
-        //
+        $memo->fill($request->all())->save();
+        return redirect(route('dashboard'))->with('message', 'メモが更新されました。');
     }
 
     /**
