@@ -67,6 +67,7 @@ class MemoController extends Controller
      */
     public function destroy(Memo $memo)
     {
-        //
+        $memo->delete();
+        return redirect(route('dashboard'))->with('message', 'メモが削除されました。');
     }
 }
