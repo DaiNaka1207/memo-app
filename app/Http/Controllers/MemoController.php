@@ -12,7 +12,8 @@ class MemoController extends Controller
      */
     public function index()
     {
-        //
+        $memos = Memo::all();
+        return view('dashboard', compact('memos'));
     }
 
     /**
