@@ -12,7 +12,8 @@ class MemoController extends Controller
      */
     public function index()
     {
-        $memos = Memo::all();
+        $page_count = 10;
+        $memos = Memo::paginate($page_count);
         return view('dashboard', compact('memos'));
     }
 
