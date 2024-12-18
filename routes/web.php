@@ -15,6 +15,10 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return redirect(route('memo.index'));
+        if(empty(session('message')) == true) {
+            return redirect(route('memo.index'));
+        } else {
+            return redirect(route('memo.index'))->with('message', session('message'));
+        }
     })->name('dashboard');
 });
