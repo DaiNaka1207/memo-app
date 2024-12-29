@@ -10,11 +10,18 @@ class MemoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $page_count = 10;
-        $memos = Memo::paginate($page_count);
-        return view('dashboard', compact('memos'));
+        $keyword = $request->keyword;
+
+        if ($keyword) {
+            $memos = Memo::where('subject', 'like', "%$keyword%")->orWhere('content', 'like', "%$keyword%")->paginate($page_count);
+        } else {
+            $memos = Memo::paginate($page_count);
+        }
+
+        return view('dashboard', compact('memos', 'keyword'));
     }
 
     /**
